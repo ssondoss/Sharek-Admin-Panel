@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+<div class="mx-2 mt-4 pt-1">
+  <div class="row mx-0 my-5 justify-content-center" dir="rtl">
+    <div class="form-group col-md-2 text-right">
+      <label for=""> المحافظة</label>
+      <select name="" id="" class="custom-select">
+        <option value="">عمان</option>
+        <option value="closed">إربد</option>
+        <option value="">الكرك</option>
+        <option value="closed">معان</option>
+        <option value="">الطفيلة</option>
+        <option value="closed">العقبة</option>
+        <option value="">الزرقاء</option>
+        <option value="closed">جرش</option>
+        <option value="">عجلون</option>
+        <option value="closed">السلط</option>
+        <option value="">مادبا</option>
+        <option value="closed">البلقاء</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2 text-right">
+      <label for=""> الفئة</label>
+      <select name="" id="" class="custom-select">
+        <option value="">البلدية</option>
+        <option value="closed">الدفاع المدني</option>
+        <option value="">الأمن العام</option>
+        <option value="closed">أخرى</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2 text-right">
+      <label for=""> التاريخ</label>
+      <select name="" id="" class="custom-select">
+        <option value="">من الأحدث للأقدم</option>
+        <option value="">من الأقدم للأحدث</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2 text-right">
+      <label for=""> الحالة</label>
+      <select name="" id="" class="custom-select">
+        <option value="">قيد الانتظار</option>
+        <option value="">قيدالمتابعة</option>
+        <option value="">تم حلها</option>
+        <option value="closed">تم رفضها</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2 text-right">
+      <label for=""> عرض التفاصيل</label>
+      <select name="" id="" class="custom-select">
+        <option value="">لم يتم عرضها</option>
+        <option value="closed">تم عرضها</option>
+      </select>
+    </div>
+    <div class="col-md-2 text-center form-group">
+      <button class="btn btn-primary text-white py-2 mt-30px">
+        فلترة الحقول
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered" dir="rtl">
+      <thead class="bg-grey text-center">
+        <th>الرقم</th>
+        <th>التاريخ</th>
+        <th>المحتوى</th>
+        <th>المحافظة</th>
+        <th>الفئة</th>
+
+        <th>التفاصيل</th>
+      </thead>
+      <tbody class="text-center">
+        <td>0000</td>
+        <td>20/2/2020</td>
+        <td>
+          محتوى نصي أو صورة أو فيديو محتوى نصي أو صورة أو فيديو محتوى نصي أو
+          صورة أو فيديومحتوى نصي أو صورة أو فيديو
+        </td>
+        <td>اربد</td>
+        <td>بلدية</td>
+
+        <td>
+          <span *ngIf="viewed == false"
+            ><ejs-tooltip id="tooltip" content="لم يتم عرضها قبل الآن ">
+              <a (click)="viewing()" routerLink="/view-complain">
+                <i class="text-dark fa fa-eye fa-2x"></i
+              ></a> </ejs-tooltip
+          ></span>
+          <span *ngIf="viewed == true">
+            <ejs-tooltip id="tooltip" content="تم عرضها من قبلك">
+              <a (click)="viewing()" routerLink="/view-complain">
+                <i class="text-success fa fa-eye fa-2x"></i
+              ></a>
+            </ejs-tooltip>
+          </span>
+        </td>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+html {
+  background-color: aquamarine !important;
+}
+.card {
+  box-shadow: 2px 4px 8px #9b9999b4 !important;
+}
+.icon-btn:hover {
+  color: #a72323 !important;
+}

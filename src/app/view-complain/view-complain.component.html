@@ -11,30 +11,44 @@
         <tr>
           <td class="w-25 text-primary f-19">الرقم</td>
 
-          <td>1</td>
+          <td>{{ (item | async)?.id }}</td>
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">التاريخ</td>
 
-          <td>17/10/1997</td>
-        </tr>
-        <tr>
-          <td class="w-25 text-primary f-19">الوقت</td>
-
-          <td>17/10/1997</td>
+          <td>{{ (item | async)?.date }}</td>
         </tr>
 
         <tr>
           <td class="w-25 text-primary f-19">المحتوى</td>
-
+          <td>{{ (item | async)?.problemDescription }}</td>
+        </tr>
+        <tr>
+          <td>المحتوى الصوري</td>
           <td>
-            <img src="../../assets/logo.png" alt="" />
+            <img
+              src="{{ getImageURL((item | async)?.problemImage) }}"
+              alt=""
+              width="400px"
+              height="auto"
+            />
           </td>
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">الموقع</td>
 
-          <td>عمان/خلدا</td>
+          <td>
+            {{ (item | async)?.locationDescription }}
+
+            <a
+              [attr.href]="
+                'http://www.google.com/maps/place/' +
+                (item | async)?.locationPoints
+              "
+              *ngIf="(item | async)?.locationPoints != ''"
+              ><i class="fa fa-map-marker mx-3 text-success"></i
+            ></a>
+          </td>
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">رقم الهاتف للمحتوى</td>
@@ -52,11 +66,64 @@
           <td class="w-25 text-primary f-19">الحالة</td>
           <td *ngIf="disabledSelect == false">
             <div class="row text-center justify-content-center">
-              <select name="" id="" class="custom-select col-6">
-                <option value="">قيد الانتظار</option>
-                <option value="">قيد المتابعة</option>
-                <option value="">تم حلها</option>
-                <option value="closed">تم رفضها</option>
+              <select
+                name=""
+                id=""
+                class="custom-select col-6"
+                (change)="onChangeStatus($event.target.value)"
+              >
+                <option
+                  *ngIf="(item | async)?.status != 'قيد الانتظار'"
+                  value="قيد الانتظار"
+                >
+                  قيد الانتظار
+                </option>
+                <option
+                  *ngIf="(item | async)?.status == 'قيد الانتظار'"
+                  selected
+                  value="قيد الانتظار"
+                >
+                  قيد الانتظار
+                </option>
+                <option
+                  *ngIf="(item | async)?.status != 'قيد المتابعة'"
+                  value="قيد المتابعة"
+                >
+                  قيد المتابعة
+                </option>
+                <option
+                  *ngIf="(item | async)?.status == 'قيد المتابعة'"
+                  selected
+                  value="قيد المتابعة"
+                >
+                  قيد المتابعة
+                </option>
+                <option
+                  *ngIf="(item | async)?.status != 'تم حلها'"
+                  value="تم حلها"
+                >
+                  تم حلها
+                </option>
+                <option
+                  *ngIf="(item | async)?.status == 'تم حلها'"
+                  selected
+                  value="تم حلها"
+                >
+                  تم حلها
+                </option>
+                <option
+                  *ngIf="(item | async)?.status != 'تم رفضها'"
+                  value="تم رفضها"
+                >
+                  تم رفضها
+                </option>
+                <option
+                  *ngIf="(item | async)?.status == 'تم رفضها'"
+                  selected
+                  value="تم رفضها"
+                >
+                  تم رفضها
+                </option>
               </select>
               <button
                 class="btn btn-success mr-3 px-3"
@@ -67,7 +134,7 @@
             </div>
           </td>
           <td *ngIf="disabledSelect == true">
-            قيد الانتظار
+            {{ (item | async)?.status }}
 
             <i
               class="fa fa-pencil-square-o mx-3 text-success"
@@ -81,6 +148,7 @@
           </td>
 
           <td *ngIf="disabledNotes == true">
+            <p>{{ (item | async)?.adminNotes }}</p>
             <i
               class="fa fa-pencil-square-o mx-3 text-success"
               (click)="editAditionalNotes()"
@@ -88,10 +156,16 @@
           </td>
           <td *ngIf="disabledNotes == false">
             <div class="row text-center justify-content-center">
-              <textarea class="form-control col-6" rows="3"> </textarea>
+              <textarea
+                class="form-control col-6"
+                rows="3"
+                #notes
+                [value]="(item | async)?.adminNotes"
+              >
+              </textarea>
               <button
                 class="btn btn-success mr-3 px-3 h-50"
-                (click)="confirmNotes()"
+                (click)="confirmNotes(notes.value)"
               >
                 تأكيد
               </button>
@@ -105,15 +179,15 @@
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">الاسم</td>
-          <td>محمد محمود خالد علي</td>
+          <td>{{ (user | async)?.name }}</td>
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">الرقم الوطني</td>
-          <td>0999999999</td>
+          <td>{{ (user | async)?.nationalID }}</td>
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">رقم الهاتف عند التسجيل</td>
-          <td>0798022719</td>
+          <td>{{ (user | async)?.mobile }}</td>
         </tr>
       </tbody>
     </table>

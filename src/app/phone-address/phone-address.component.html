@@ -6,8 +6,29 @@
       dir="rtl"
       class="row mt-3 mb-5"
       [formGroup]="phoneAddressForm"
+      (submit)="add()"
     >
-      <div class="form-group col-md-4 text-right">
+      <div class="form-group col-md-3 text-right">
+        <label for="">
+          فئة الجهة الرسمية (أمن عام ، بلدية ، دفاع مدني ...)</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          formControlName="category"
+          required
+          maxlength="250"
+        />
+        <mat-error
+          *ngIf="
+            phoneAddressForm.controls.category.errors?.required &&
+            phoneAddressForm.controls.category.touched
+          "
+        >
+          هذا الحقل مطلوب
+        </mat-error>
+      </div>
+      <div class="form-group col-md-3 text-right">
         <label for=""> اسم الجهة الرسمية</label>
         <input
           type="text"
@@ -25,10 +46,10 @@
           هذا الحقل مطلوب
         </mat-error>
       </div>
-      <div class="form-group col-md-3 text-right">
+      <div class="form-group col-md-2 text-right">
         <label for=""> رقم الهاتف </label>
         <input
-          type="text"
+          type="tel"
           class="form-control"
           formControlName="phoneNumber"
           required
@@ -50,31 +71,52 @@
         </mat-error>
       </div>
       <div class="form-group col-md-2 text-center">
-        <button class="btn btn-primary mt-30px w-75 py-2">إضافة</button>
+        <button
+          class="btn btn-primary mt-30px w-75 py-2"
+          type="submit"
+          [disabled]="phoneAddressForm.invalid"
+        >
+          إضافة
+        </button>
       </div>
     </form>
   </div>
   <div class="table-responsive">
     <table class="table table-bordered" dir="rtl">
       <thead class="text-center bg-grey">
+        <th>فئة الجهة الرسمية</th>
         <th>اسم الجهة الرسمية</th>
         <th>رقم الهاتف</th>
         <th>تعديل</th>
         <th>حذف</th>
       </thead>
       <tbody class="text-center">
-        <td>الامن العام</td>
-        <td>666666666</td>
-        <td>
-          <i
-            class="fa fa-pencil-square-o mx-3 fa-2x text-success"
-            aria-hidden="true"
-            routerLink="/edit-phone-address"
-          ></i>
-        </td>
-        <td>
-          <i class="fa fa-trash mx-2 text-primary"></i>
-        </td>
+        <tr *ngFor="let phone of phones | async">
+          <td>
+            {{ phone.category }}
+          </td>
+          <td>{{ phone.name }}</td>
+          <td>{{ phone.phone }}</td>
+          <td>
+            <a
+              [routerLink]="['/edit-phone-address']"
+              [queryParams]="{ id: phone.id }"
+              rel="noopener noreferrer"
+            >
+              <i
+                class="fa fa-pencil-square-o mx-3 fa-2x text-success"
+                aria-hidden="true"
+                routerLink="/edit-phone-address"
+              ></i>
+            </a>
+          </td>
+          <td>
+            <i
+              class="fa fa-trash mx-2 text-primary"
+              (click)="delete(phone.id)"
+            ></i>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

@@ -69,30 +69,39 @@
         <th>التفاصيل</th>
       </thead>
       <tbody class="text-center">
-        <td>0000</td>
-        <td>20/2/2020</td>
-        <td>
-          محتوى نصي أو صورة أو فيديو محتوى نصي أو صورة أو فيديو محتوى نصي أو
-          صورة أو فيديومحتوى نصي أو صورة أو فيديو
-        </td>
-        <td>اربد</td>
-        <td>بلدية</td>
+        <tr *ngFor="let complain of complains | async">
+          <td>{{ complain.id }}</td>
+          <td>{{ getDate(complain.date) }}</td>
+          <td>
+            {{ complain.problemDescription }}
+          </td>
+          <td>{{ complain.city }}</td>
+          <td>{{ complain.category }}</td>
 
-        <td>
-          <span *ngIf="viewed == false"
-            ><ejs-tooltip id="tooltip" content="لم يتم عرضها قبل الآن ">
-              <a (click)="viewing()" routerLink="/view-complain">
-                <i class="text-dark fa fa-eye fa-2x"></i
-              ></a> </ejs-tooltip
-          ></span>
-          <span *ngIf="viewed == true">
-            <ejs-tooltip id="tooltip" content="تم عرضها من قبلك">
-              <a (click)="viewing()" routerLink="/view-complain">
-                <i class="text-success fa fa-eye fa-2x"></i
-              ></a>
-            </ejs-tooltip>
-          </span>
-        </td>
+          <td>
+            <span *ngIf="complain.viewed == false"
+              ><ejs-tooltip id="tooltip" content="لم يتم عرضها قبل الآن ">
+                <a
+                  [routerLink]="['/view-complain']"
+                  [queryParams]="{ id: complain.id }"
+                  rel="noopener noreferrer"
+                >
+                  <i class="text-success fa fa-eye fa-2x"></i
+                ></a> </ejs-tooltip
+            ></span>
+            <span *ngIf="complain.viewed == true">
+              <ejs-tooltip id="tooltip" content="تم عرضها من قبلك">
+                <a
+                  [routerLink]="['/view-complain']"
+                  [queryParams]="{ id: complain.id }"
+                  rel="noopener noreferrer"
+                >
+                  <i class="text-dark fa fa-eye fa-2x"></i
+                ></a>
+              </ejs-tooltip>
+            </span>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

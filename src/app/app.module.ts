@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
 import { EditPhoneAddressComponent } from './phone-address/edit-phone-address/edit-phone-address.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { EditPhoneAddressComponent } from './phone-address/edit-phone-address/ed
     ReactiveFormsModule,
     MatFormFieldModule,
     FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     TooltipModule,
   ],
   providers: [],

@@ -16,7 +16,7 @@
         <tr>
           <td class="w-25 text-primary f-19">التاريخ</td>
 
-          <td>{{ (item | async)?.date }}</td>
+          <td>{{ (item | async)?.date | date: "dd/MM/yyyy" }}</td>
         </tr>
 
         <tr>
@@ -148,7 +148,7 @@
           </td>
 
           <td *ngIf="disabledNotes == true">
-            <p>{{ (item | async)?.adminNotes }}</p>
+            <p>{{ getAdminNotes((item | async)?.adminNotes) }}</p>
             <i
               class="fa fa-pencil-square-o mx-3 text-success"
               (click)="editAditionalNotes()"
@@ -160,7 +160,7 @@
                 class="form-control col-6"
                 rows="3"
                 #notes
-                [value]="(item | async)?.adminNotes"
+                [value]="getAdminNotes((item | async)?.adminNotes)"
               >
               </textarea>
               <button
@@ -179,15 +179,15 @@
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">الاسم</td>
-          <td>{{ (user | async)?.name }}</td>
+          <td>{{ (item | async)?.username }}</td>
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">الرقم الوطني</td>
-          <td>{{ (user | async)?.nationalID }}</td>
+          <td>{{ (item | async)?.nationalID }}</td>
         </tr>
         <tr>
           <td class="w-25 text-primary f-19">رقم الهاتف عند التسجيل</td>
-          <td>{{ (user | async)?.mobile }}</td>
+          <td>{{ (item | async)?.mobilePhone }}</td>
         </tr>
       </tbody>
     </table>

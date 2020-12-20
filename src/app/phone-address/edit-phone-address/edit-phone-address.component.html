@@ -16,13 +16,14 @@
           type="text"
           class="form-control"
           formControlName="category"
+          [value]="(item | async)?.category"
           required
           maxlength="250"
         />
         <mat-error
           *ngIf="
-            phoneAddressForm.controls.category.errors?.required &&
-            phoneAddressForm.controls.category.touched
+            editPhoneAddressForm.controls.category.errors?.required &&
+            editPhoneAddressForm.controls.category.touched
           "
         >
           هذا الحقل مطلوب
@@ -50,7 +51,7 @@
       <div class="form-group col-md-2 text-right">
         <label for=""> رقم الهاتف </label>
         <input
-          type="text"
+          type="tel"
           class="form-control"
           [value]="(item | async)?.phone"
           formControlName="phoneNumber"
@@ -75,11 +76,7 @@
         </mat-error>
       </div>
       <div class="form-group col-md-2 text-center">
-        <button
-          class="btn btn-success mt-30px w-75 py-2"
-          type="submit"
-          [disabled]="editPhoneAddressForm.invalid"
-        >
+        <button class="btn btn-success mt-30px w-75 py-2" type="submit">
           تعديل
         </button>
       </div>

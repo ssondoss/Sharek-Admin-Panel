@@ -20,8 +20,13 @@ export class ViewComplainComponent implements OnInit {
   staus: any = '';
   notes: any;
   userDoc: AngularFirestoreDocument<any>;
-  user: Observable<any>;
+  itemuser: Observable<any>;
   userId: any;
+  user: Observable<any>;
+  counter: AngularFirestoreDocument<any>;
+  conterItem: any;
+  solved: any;
+  rejected: any;
 
   constructor(
     public afs: AngularFirestore,
@@ -38,20 +43,33 @@ export class ViewComplainComponent implements OnInit {
       this.item = this.itemDoc.valueChanges();
       this.itemDoc.update({ viewed: true });
       this.item.subscribe((event) => {
-        this.userId = event.userId;
+        this.userId = event.nationalID;
         console.log(this.userId);
         this.userDoc = this.afs.doc<any>('users/' + this.userId.trim());
         this.user = this.userDoc.valueChanges();
       });
     });
+    this.counter = this.afs.doc<any>('count/counters');
+    this.conterItem = this.counter.valueChanges();
+    this.solved;
+    this.conterItem.subscribe((event) => {
+      this.solved = event.solved;
+      this.rejected = event.rejected;
+    });
   }
   editStatus(): void {
     this.disabledSelect = false;
   }
-  confirmStatus(): void {
+  async confirmStatus(): Promise<void> {
     if (this.staus != '') {
       console.log(this.staus);
       this.itemDoc.update({ status: this.staus });
+    }
+
+    if (this.staus == 'تم حلها') {
+      this.counter.update({ solved: this.solved + 1 });
+    } else if (this.staus == 'تم رفضها') {
+      this.counter.update({ rejected: this.rejected + 1 });
     }
 
     this.disabledSelect = true;
@@ -84,5 +102,9 @@ export class ViewComplainComponent implements OnInit {
         '?alt=media&token=61d1edbd-d44f-4b91-a86d-dfa0d65fd29c';
       return url;
     } else return '';
+  }
+
+  getAdminNotes(value): string {
+    return value === undefined ? 'لا يوجد' : value;
   }
 }

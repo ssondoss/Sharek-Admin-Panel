@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -21,16 +21,21 @@ export class EditPhoneAddressComponent implements OnInit {
   constructor(
     public afs: AngularFirestore,
     public formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   update() {
-    this.itemDoc.update({
-      category: this.editPhoneAddressForm.controls['category'].value,
+    this.itemDoc
+      .update({
+        category: this.editPhoneAddressForm.controls['category'].value,
 
-      phone: this.editPhoneAddressForm.controls['phoneNumber'].value,
-      name: this.editPhoneAddressForm.controls['contactName'].value,
-    });
+        phone: this.editPhoneAddressForm.controls['phoneNumber'].value,
+        name: this.editPhoneAddressForm.controls['contactName'].value,
+      })
+      .then(() => {
+        this.router.navigate(['/phone-address']);
+      });
   }
 
   ngOnInit(): void {
@@ -39,25 +44,32 @@ export class EditPhoneAddressComponent implements OnInit {
       this.phoneId = this.phoneId.trim();
       this.itemDoc = this.afs.doc<any>('phone-book/' + this.phoneId);
       this.item = this.itemDoc.valueChanges();
-      this.item.forEach((x) => console.log(x));
-    });
-    this.editPhoneAddressForm = this.formBuilder.group({
-      category: [
-        '',
-        Validators.compose([Validators.required, Validators.maxLength(250)]),
-      ],
-      contactName: [
-        '',
-        Validators.compose([Validators.required, Validators.maxLength(250)]),
-      ],
-      phoneNumber: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(10),
-        ]),
-      ],
+      this.item.subscribe((item) => {
+        this.editPhoneAddressForm = this.formBuilder.group({
+          category: [
+            item.category,
+            Validators.compose([
+              Validators.required,
+              Validators.maxLength(250),
+            ]),
+          ],
+          contactName: [
+            item.phone,
+            Validators.compose([
+              Validators.required,
+              Validators.maxLength(250),
+            ]),
+          ],
+          phoneNumber: [
+            item.name,
+            Validators.compose([
+              Validators.required,
+              Validators.minLength(6),
+              Validators.maxLength(10),
+            ]),
+          ],
+        });
+      });
     });
   }
 }

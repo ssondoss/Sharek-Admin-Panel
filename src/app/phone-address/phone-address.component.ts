@@ -6,6 +6,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-phone-address',
@@ -16,7 +17,6 @@ export class PhoneAddressComponent implements OnInit {
   phoneAddressForm: FormGroup;
   phones: Observable<any[]>;
   private itemDoc: AngularFirestoreDocument<any>;
-
   constructor(
     public firestore: AngularFirestore,
     public formBuilder: FormBuilder,
@@ -53,6 +53,13 @@ export class PhoneAddressComponent implements OnInit {
   delete(id: string): void {
     this.itemDoc = this.firestore.doc<any>('phone-book/' + id.trim());
     this.itemDoc.delete();
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: 'تم الحذف ',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
   add(): void {
     console.log('add');
@@ -64,6 +71,32 @@ export class PhoneAddressComponent implements OnInit {
 
       name: this.phoneAddressForm.controls['contactName'].value,
       phone: this.phoneAddressForm.controls['phoneNumber'].value,
+    });
+    this.phoneAddressForm = this.formBuilder.group({
+      category: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(250)]),
+      ],
+      contactName: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(250)]),
+      ],
+      phoneNumber: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(10),
+        ]),
+      ],
+    });
+
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: 'تم الاضافة ',
+      showConfirmButton: false,
+      timer: 1500,
     });
   }
 

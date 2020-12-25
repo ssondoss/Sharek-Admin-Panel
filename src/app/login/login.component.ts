@@ -6,6 +6,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -49,10 +50,22 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('currentSharekAdmin', JSON.stringify(event));
           this.router.navigate(['/']);
         } else {
-          alert('Worng email/password');
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'خطأ في اسم المستخدم او كلمة السر',
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       } else {
-        alert('Worng email/password');
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'خطأ في اسم المستخدم او كلمة السر',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   }

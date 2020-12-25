@@ -47,4 +47,59 @@ export class ComplainsComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
+
+  onCityCahnged(value) {
+    this.complains = this.firestore
+      .collection('complaint-and-suggestions', (ref) =>
+        ref.where('city', '==', value)
+      )
+      .valueChanges();
+  }
+
+  viewSelectChange(value) {
+    if (value === 'false')
+      this.complains = this.firestore
+        .collection('complaint-and-suggestions', (ref) =>
+          ref.where('viewed', '==', false)
+        )
+        .valueChanges();
+    else
+      this.complains = this.firestore
+        .collection('complaint-and-suggestions', (ref) =>
+          ref.where('viewed', '==', true)
+        )
+        .valueChanges();
+  }
+
+  onStatusSelectChanged(value) {
+    this.complains = this.firestore
+      .collection('complaint-and-suggestions', (ref) =>
+        ref.where('status', '==', value)
+      )
+      .valueChanges();
+  }
+
+  onCategorySelectChanged(value) {
+    this.complains = this.firestore
+      .collection('complaint-and-suggestions', (ref) =>
+        ref.where('category', '==', value)
+      )
+      .valueChanges();
+  }
+
+  onDateOrderSelectChage(value) {
+    if (value == 'desc') {
+      this.complains = this.firestore
+        .collection('complaint-and-suggestions', (ref) =>
+          ref.orderBy('date', 'desc')
+        )
+        .valueChanges();
+    } else {
+      this.complains = this.firestore
+        .collection('complaint-and-suggestions', (ref) =>
+          ref.orderBy('date', 'asc')
+        )
+        .valueChanges();
+    }
+  }
 }

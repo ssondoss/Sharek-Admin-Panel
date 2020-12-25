@@ -8,15 +8,15 @@
         </th>
       </thead>
       <tbody class="text-center">
-        <tr>
+        <!-- <tr>
           <td class="w-25 text-primary f-19">الرقم</td>
 
           <td>{{ (item | async)?.id }}</td>
-        </tr>
+        </tr> -->
         <tr>
           <td class="w-25 text-primary f-19">التاريخ</td>
 
-          <td>{{ (item | async)?.date | date: "dd/MM/yyyy" }}</td>
+          <td>{{ (item | async)?.date | date: "hh:mm - dd/MM/yyyy" }}</td>
         </tr>
 
         <tr>

@@ -81,58 +81,9 @@
                 class="custom-select col-6"
                 (change)="onChangeStatus($event.target.value)"
               >
-                <option
-                  *ngIf="(item | async)?.status != 'قيد الانتظار'"
-                  value="قيد الانتظار"
-                >
-                  قيد الانتظار
-                </option>
-                <option
-                  *ngIf="(item | async)?.status == 'قيد الانتظار'"
-                  selected
-                  value="قيد الانتظار"
-                >
-                  قيد الانتظار
-                </option>
-                <option
-                  *ngIf="(item | async)?.status != 'قيد المتابعة'"
-                  value="قيد المتابعة"
-                >
-                  قيد المتابعة
-                </option>
-                <option
-                  *ngIf="(item | async)?.status == 'قيد المتابعة'"
-                  selected
-                  value="قيد المتابعة"
-                >
-                  قيد المتابعة
-                </option>
-                <option
-                  *ngIf="(item | async)?.status != 'تم حلها'"
-                  value="تم حلها"
-                >
-                  تم حلها
-                </option>
-                <option
-                  *ngIf="(item | async)?.status == 'تم حلها'"
-                  selected
-                  value="تم حلها"
-                >
-                  تم حلها
-                </option>
-                <option
-                  *ngIf="(item | async)?.status != 'تم رفضها'"
-                  value="تم رفضها"
-                >
-                  تم رفضها
-                </option>
-                <option
-                  *ngIf="(item | async)?.status == 'تم رفضها'"
-                  selected
-                  value="تم رفضها"
-                >
-                  تم رفضها
-                </option>
+                <option value="قيدالمتابعة">قيدالمتابعة</option>
+                <option value="تم حلها">تم حلها</option>
+                <option value="تم رفضها">تم رفضها</option>
               </select>
               <button
                 class="btn btn-success mr-3 px-3"

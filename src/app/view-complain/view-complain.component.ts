@@ -103,8 +103,21 @@ export class ViewComplainComponent implements OnInit {
       return url;
     } else return '';
   }
-
+  getVideoURL(video) {
+    if (video != null) {
+      const url =
+        'https://firebasestorage.googleapis.com/v0/b/sharek-80e70.appspot.com/o/' +
+        video.replace('/', '%2F') +
+        '?alt=media&token=61d1edbd-d44f-4b91-a86d-dfa0d65fd29c';
+      return url;
+    } else return '';
+  }
   getAdminNotes(value): string {
     return value === undefined ? 'لا يوجد' : value;
+  }
+
+  getPointN(points: string, n) {
+    let array = points.split(' , ');
+    return array[n];
   }
 }

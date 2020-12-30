@@ -9,6 +9,8 @@
         class="custom-select"
         (change)="onDateOrderSelectChage($event.target.value)"
       >
+        <option value="Select">اختر</option>
+
         <option value="desc">من الأحدث للأقدم</option>
         <option value="asc">من الأقدم للأحدث</option>
       </select>
@@ -21,6 +23,8 @@
         class="custom-select"
         (change)="onCityCahnged($event.target.value)"
       >
+        <option value="Select">اختر</option>
+
         <option value="عمان">عمان</option>
         <option value="إربد">إربد</option>
         <option value="الكرك">الكرك</option>
@@ -43,10 +47,19 @@
         class="custom-select"
         (change)="onCategorySelectChanged($event.target.value)"
       >
+        <option value="Select">اختر</option>
+
+        <option value="Select">اختر</option>
         <option value="البلدية">البلدية</option>
-        <option value="الدفاع المدني">الدفاع المدني</option>
         <option value="الأمن العام">الأمن العام</option>
-        <option value="أخرى">أخرى</option>
+        <option value="الدفاع المدني">الدفاع المدني</option>
+        <option value="التقصي الوبائي">التقصي الوبائي</option>
+        <option value="سلطة الكهرباء">سلطة الكهرباء</option>
+        <option value="مكافحة المخدرات">مكافحة المخدرات</option>
+        <option value="سلطة المياة">سلطة المياة</option>
+        <option value="المخابرات">المخابرات</option>
+        <option value="شرطة السير">شرطة السير</option>
+        <option value="فئة أخرى">فئة أخرى</option>
       </select>
     </div>
 
@@ -58,6 +71,8 @@
         class="custom-select"
         (change)="onStatusSelectChanged($event.target.value)"
       >
+        <option value="Select">اختر</option>
+
         <option value="تم ارسالها">تم استلامها</option>
         <option value="قيدالمتابعة">قيدالمتابعة</option>
         <option value="تم حلها">تم حلها</option>
@@ -72,6 +87,8 @@
         class="custom-select"
         (change)="viewSelectChange($event.target.value)"
       >
+        <option value="Select">اختر</option>
+
         <option value="false">لم يتم عرضها</option>
         <option value="true">تم عرضها</option>
       </select>

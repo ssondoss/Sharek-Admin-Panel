@@ -23,17 +23,21 @@
           <td class="w-25 text-primary f-19">المحتوى</td>
           <td>{{ (item | async)?.problemDescription }}</td>
         </tr>
-        <tr>
+        <tr *ngIf="getMediaType((item | async)?.problemImage) != 'other'">
           <td class="w-25 text-primary f-19">المحتوى المرئي</td>
           <td>
             <img
+              *ngIf="getMediaType((item | async)?.problemImage) == 'image'"
               src="{{ getImageURL((item | async)?.problemImage) }}"
               alt=""
-              width="400px"
-              height="auto"
+              width="auto"
+              height="500"
             />
             <video
+              *ngIf="getMediaType((item | async)?.problemImage) == 'video'"
               src="{{ getVideoURL((item | async)?.problemImage) }}"
+              width="auto"
+              height="500"
               controls
             ></video>
           </td>
@@ -81,6 +85,7 @@
                 class="custom-select col-6"
                 (change)="onChangeStatus($event.target.value)"
               >
+                <option value="تم ارسالها">تم استلامها</option>
                 <option value="قيدالمتابعة">قيدالمتابعة</option>
                 <option value="تم حلها">تم حلها</option>
                 <option value="تم رفضها">تم رفضها</option>
@@ -94,7 +99,11 @@
             </div>
           </td>
           <td *ngIf="disabledSelect == true">
-            {{ (item | async)?.status }}
+            {{
+              (item | async)?.status === "تم ارسالها"
+                ? "تم استلامها"
+                : (item | async)?.status
+            }}
 
             <i
               class="fa fa-pencil-square-o mx-3 text-success"

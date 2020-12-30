@@ -120,4 +120,10 @@ export class ViewComplainComponent implements OnInit {
     let array = points.split(' , ');
     return array[n];
   }
+
+  getMediaType(name: string) {
+    if (name.includes('images')) return 'image';
+    if (name.includes('video')) return 'video';
+    else return 'other';
+  }
 }
